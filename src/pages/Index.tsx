@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,8 @@ const Index = () => {
     status: "",
     message: ""
   });
+  
+  const [showDates, setShowDates] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,14 +33,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#c7c6c6]">
-      <nav className="sticky top-0 z-50 bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <nav className="sticky top-0 z-50 bg-white shadow-sm">
+        <div className="container mx-auto px-4 max-w-7xl">
           <div className="flex items-center justify-between h-16">
-            <span className="font-bold text-[#1d4356]">Психоаналитическая диагностика</span>
+            <span className="font-bold text-[#1d4356] text-lg">Психоаналитическая диагностика</span>
             <div className="hidden md:flex gap-6">
               <button onClick={() => scrollToSection('audience')} className="text-sm text-[#1d4356] hover:opacity-70">Для кого</button>
-              <button onClick={() => scrollToSection('format')} className="text-sm text-[#1d4356] hover:opacity-70">Формат</button>
-              <button onClick={() => scrollToSection('schedule')} className="text-sm text-[#1d4356] hover:opacity-70">Расписание</button>
               <button onClick={() => scrollToSection('program')} className="text-sm text-[#1d4356] hover:opacity-70">Программа</button>
               <button onClick={() => scrollToSection('pricing')} className="text-sm text-[#1d4356] hover:opacity-70">Стоимость</button>
               <button onClick={() => scrollToSection('teacher')} className="text-sm text-[#1d4356] hover:opacity-70">Преподаватель</button>
@@ -51,51 +51,149 @@ const Index = () => {
         </div>
       </nav>
 
-      <header className="bg-[#1d4356] text-white py-16 md:py-24">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-            Уровни психической организации личности<br />в концепции психоаналитической диагностики
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90">
-            Онлайн-курс повышения квалификации для психологов-консультантов и психотерапевтов
-          </p>
-          <div className="flex flex-col md:flex-row md:items-center gap-4 text-lg mb-8">
-            <div className="flex items-center gap-2">
-              <Icon name="Calendar" size={20} className="text-white" />
-              <span>9 занятий, старт 03.02</span>
+      <header className="py-16 md:py-24">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-[#1d4356] mb-6 leading-tight">
+                Уровни психической организации личности в концепции психоаналитической диагностики
+              </h1>
+              <p className="text-xl text-[#111111] mb-8">
+                Онлайн-курс повышения квалификации для психологов-консультантов и психотерапевтов
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  onClick={() => scrollToSection('signup')} 
+                  size="lg" 
+                  className="bg-[#1d4356] text-white hover:bg-[#1d4356]/90"
+                >
+                  Оставить заявку
+                </Button>
+                <Button 
+                  onClick={() => scrollToSection('program')} 
+                  size="lg" 
+                  variant="outline" 
+                  className="bg-white border-2 border-[#1d4356] text-[#1d4356] hover:bg-[#1d4356]/10"
+                >
+                  Программа курса
+                </Button>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <Icon name="Clock" size={20} className="text-white" />
-              <span>19:00–20:30</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Icon name="GraduationCap" size={20} className="text-white" />
-              <span>Удостоверение 72 часа</span>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button onClick={() => scrollToSection('signup')} size="lg" className="bg-[#1d4356] text-white hover:bg-[#1d4356]/90">
-              Оставить заявку
-            </Button>
-            <Button onClick={() => scrollToSection('program')} size="lg" variant="outline" className="bg-white border-2 border-[#1d4356] text-[#1d4356] hover:bg-[#1d4356] hover:text-white">
-              Программа курса
-            </Button>
+
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle className="text-[#1d4356] flex items-center gap-2">
+                  <Icon name="Calendar" size={24} className="text-[#1d4356]" />
+                  Календарь курса
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-3 text-[#111111]">
+                  <div className="flex justify-between">
+                    <span className="font-medium">Старт:</span>
+                    <span>03.02</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Время:</span>
+                    <span>19:00–20:30</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Период:</span>
+                    <span>03.02–01.04</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Занятий:</span>
+                    <span>9 занятий, 1 раз в неделю</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Тестирование:</span>
+                    <span>до 15 апреля</span>
+                  </div>
+                </div>
+                
+                <button 
+                  onClick={() => setShowDates(!showDates)}
+                  className="text-[#d3544f] text-sm font-medium hover:opacity-70 flex items-center gap-1 mt-4"
+                >
+                  {showDates ? 'Скрыть даты' : 'Все даты'}
+                  <Icon name={showDates ? "ChevronUp" : "ChevronDown"} size={16} />
+                </button>
+
+                {showDates && (
+                  <div className="mt-4 pt-4 border-t space-y-2 text-sm text-[#111111]">
+                    <div>03.02 — вторник</div>
+                    <div>10.02 — вторник</div>
+                    <div>18.02 — среда</div>
+                    <div>25.02 — среда</div>
+                    <div>04.03 — среда</div>
+                    <div>10.03 — вторник</div>
+                    <div>18.03 — среда</div>
+                    <div>25.03 — среда</div>
+                    <div>01.04 — среда</div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </header>
 
-      <section id="audience" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-8">Для кого этот курс</h2>
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <Card className="bg-white text-center">
+              <CardContent className="p-6">
+                <Icon name="Calendar" size={32} className="text-[#1d4356] mx-auto mb-3" />
+                <p className="text-sm font-medium text-[#111111]">9 занятий</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white text-center">
+              <CardContent className="p-6">
+                <Icon name="Video" size={32} className="text-[#1d4356] mx-auto mb-3" />
+                <p className="text-sm font-medium text-[#111111]">7 вебинаров + 2 супервизии</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white text-center">
+              <CardContent className="p-6">
+                <Icon name="FileText" size={32} className="text-[#1d4356] mx-auto mb-3" />
+                <p className="text-sm font-medium text-[#111111]">2 ДЗ с обратной связью</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white text-center">
+              <CardContent className="p-6">
+                <Icon name="PlayCircle" size={32} className="text-[#1d4356] mx-auto mb-3" />
+                <p className="text-sm font-medium text-[#111111]">Записи 6 месяцев</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white text-center">
+              <CardContent className="p-6">
+                <Icon name="Award" size={32} className="text-[#1d4356] mx-auto mb-3" />
+                <p className="text-sm font-medium text-[#111111]">Удостоверение 72 часа</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-white text-center">
+              <CardContent className="p-6">
+                <Icon name="MessageSquare" size={32} className="text-[#1d4356] mx-auto mb-3" />
+                <p className="text-sm font-medium text-[#111111]">Чат группы</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="audience" className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-12">Для кого этот курс</h2>
+          <div className="grid md:grid-cols-2 gap-8">
             <Card className="bg-white">
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3 text-[#1d4356]">
-                  <Icon name="Users" size={24} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                  <span>Психологи-консультанты и психотерапевты</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="p-8">
+                <Icon name="Users" size={32} className="text-[#1d4356] mb-4" />
+                <h3 className="text-xl font-semibold text-[#1d4356] mb-3">Психологи-консультанты и психотерапевты</h3>
                 <p className="text-[#111111]">
                   С высшим образованием по психологии или ДПО, которые начинают практику в психоаналитическом подходе
                 </p>
@@ -103,147 +201,43 @@ const Index = () => {
             </Card>
 
             <Card className="bg-white">
-              <CardHeader>
-                <CardTitle className="flex items-start gap-3 text-[#1d4356]">
-                  <Icon name="BookOpen" size={24} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                  <span>Обучающиеся психологии</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="p-8">
+                <Icon name="BookOpen" size={32} className="text-[#1d4356] mb-4" />
+                <h3 className="text-xl font-semibold text-[#1d4356] mb-3">Обучающиеся психологии</h3>
                 <p className="text-[#111111]">
                   Желающие разобраться в психоаналитической диагностике для последующего применения в практике
                 </p>
               </CardContent>
             </Card>
           </div>
-
-          <Card className="bg-white">
-            <CardHeader>
-              <CardTitle className="text-[#1d4356]">Цели обучения</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#111111]">Структурировать знания об уровнях личностной организации</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#111111]">Понять диагностические критерии психоаналитического подхода</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#111111]">Определять уровень психического функционирования клиента (невротический, пограничный, психотический, нарциссический)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#111111]">Понимать стратегию работы уже на первых сессиях</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <span className="text-[#111111]">Укрепить навыки диагностики на практических примерах и в супервизионном формате</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
-      <section id="format" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-8">Формат обучения</h2>
-          <Card className="bg-white mb-6">
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="font-semibold text-lg text-[#1d4356] mb-4">Занятия</h3>
-                  <ul className="space-y-3 text-[#111111]">
-                    <li className="flex items-start gap-2">
-                      <Icon name="Video" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>7 вебинаров в прямом эфире</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Icon name="Users" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>2 практических супервизионных занятия</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Icon name="Clock" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>1 раз в неделю, 19:00–20:30</span>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg text-[#1d4356] mb-4">Материалы</h3>
-                  <ul className="space-y-3 text-[#111111]">
-                    <li className="flex items-start gap-2">
-                      <Icon name="FileText" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>2 домашних задания с обратной связью</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Icon name="MessageSquare" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>Чат участников</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Icon name="FileDown" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>Презентации и конспекты</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <Icon name="PlayCircle" size={18} className="flex-shrink-0 mt-1 text-[#1d4356]" />
-                      <span>Записи вебинаров (кроме практики) доступны 6 месяцев</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="mt-6 pt-6 border-t">
-                <p className="text-sm text-[#111111]">
-                  Итоговое тестирование до 15 апреля. По итогам выдается удостоверение о повышении квалификации на 72 часа.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section id="skills" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-8">Чему вы научитесь</h2>
+      <section id="format" className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-12">Формат обучения</h2>
           <Card className="bg-white">
             <CardContent className="p-8">
-              <ul className="space-y-4">
+              <ul className="space-y-4 text-[#111111]">
                 <li className="flex items-start gap-3">
-                  <Icon name="Target" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-[#1d4356]">Точная диагностика уровня личностной организации</p>
-                    <p className="text-sm text-[#111111] mt-1">Определять невротический, пограничный, психотический и нарциссический уровни</p>
-                  </div>
+                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
+                  <span>Структурировать знания об уровнях личностной организации</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Icon name="Shield" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-[#1d4356]">Снижение рисков в терапии</p>
-                    <p className="text-sm text-[#111111] mt-1">Предотвращать ретравматизацию и обрыв терапевтического процесса</p>
-                  </div>
+                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
+                  <span>Понять диагностические критерии психоаналитического подхода</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Icon name="Map" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-[#1d4356]">Выбор терапевтической стратегии</p>
-                    <p className="text-sm text-[#111111] mt-1">Понимание тактики работы с первых сессий на основе диагностических критериев</p>
-                  </div>
+                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
+                  <span>Определять уровень психического функционирования клиента (невротический, пограничный, психотический, нарциссический)</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Icon name="Heart" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-[#1d4356]">Экологичность терапевтического процесса</p>
-                    <p className="text-sm text-[#111111] mt-1">Работа с переносом и контрпереносом с учетом структуры личности клиента</p>
-                  </div>
+                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
+                  <span>Понимать стратегию работы уже на первых сессиях</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Icon name="Lightbulb" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="font-semibold text-[#1d4356]">Практические навыки</p>
-                    <p className="text-sm text-[#111111] mt-1">Разбор реальных случаев в супервизионном формате, отработка на практических примерах</p>
-                  </div>
+                  <Icon name="CheckCircle2" size={20} className="text-[#1d4356] flex-shrink-0 mt-0.5" />
+                  <span>Укрепить навыки диагностики на практических примерах и в супервизионном формате</span>
                 </li>
               </ul>
             </CardContent>
@@ -251,222 +245,160 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="schedule" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-4">Расписание занятий</h2>
-          <p className="text-[#111111] mb-8">Занятия проходят 1 раз в неделю с 19:00 до 20:30. Старт — 03.02</p>
-          <Card className="bg-white">
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left p-4 font-semibold text-[#1d4356]">Занятие</th>
-                      <th className="text-left p-4 font-semibold text-[#1d4356]">Дата</th>
-                      <th className="text-left p-4 font-semibold text-[#1d4356]">День недели</th>
-                      <th className="text-left p-4 font-semibold text-[#1d4356]">Время</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { n: 1, date: '03.02', day: 'Вторник' },
-                      { n: 2, date: '10.02', day: 'Вторник' },
-                      { n: 3, date: '18.02', day: 'Среда' },
-                      { n: 4, date: '25.02', day: 'Среда' },
-                      { n: 5, date: '04.03', day: 'Среда' },
-                      { n: 6, date: '10.03', day: 'Вторник' },
-                      { n: 7, date: '18.03', day: 'Среда' },
-                      { n: 8, date: '25.03', day: 'Среда' },
-                      { n: 9, date: '01.04', day: 'Среда' }
-                    ].map((item) => (
-                      <tr key={item.n} className="border-b last:border-0 hover:bg-muted/50">
-                        <td className="p-4 text-[#111111]">{item.n}</td>
-                        <td className="p-4 font-medium text-[#111111]">{item.date}</td>
-                        <td className="p-4 text-[#111111]">{item.day}</td>
-                        <td className="p-4 text-[#111111]">19:00–20:30</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section id="program" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-8">Программа курса</h2>
-          
-          <Card className="bg-white mb-8">
-            <CardHeader>
-              <CardTitle className="text-[#1d4356]">Краткое содержание</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-[#111111]">
-                <li>• Невротический уровень организации личности</li>
-                <li>• Пограничный уровень (2 занятия): концепция, критерии, отличие от ПРЛ</li>
-                <li>• Психотический уровень организации</li>
-                <li>• Нарциссическая личность</li>
-                <li>• Психоаналитическая типология в литературе и кино</li>
-                <li>• 2 практических супервизионных занятия с разбором случаев</li>
-                <li>• Интеграция знаний и завершение курса</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <h3 className="text-2xl font-semibold text-[#1d4356] mb-6">Подробная программа</h3>
+      <section id="program" className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-12">Программа курса</h2>
           
           <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="item-1" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-1" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">01</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Невротический уровень организации личности</h4>
-                    <p className="text-sm text-[#111111] mt-1">03.02, вторник, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">03.02, вторник</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Классические представления о невротической организации. Диагностические признаки: защитные механизмы, качество объектных отношений, тревога и вина. Проявления в терапевтическом альянсе. Контрперенос и технические особенности работы.
+                  Классические представления о невротической организации. Диагностические признаки: защитные механизмы, качество объектных отношений, тревога и вина. Проявления в терапевтическом альянсе.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-2" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-2" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">02</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Пограничный уровень. Часть 1</h4>
-                    <p className="text-sm text-[#111111] mt-1">10.02, вторник, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">10.02, вторник</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Концепция пограничной организации личности. Защиты и объектные отношения пограничного уровня. Диффузная идентичность. Расщепление, проективная идентификация, примитивная идеализация. Кейсы из практики.
+                  Концепция пограничной организации личности. Защиты и объектные отношения пограничного уровня. Диффузная идентичность. Расщепление, проективная идентификация, примитивная идеализация.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-3" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-3" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">03</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Пограничный уровень. Часть 2</h4>
-                    <p className="text-sm text-[#111111] mt-1">18.02, среда, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">18.02, среда</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Различие пограничной организации и ПРЛ. Координаты MISERY (Н. Мак-Вильямс). Ориентиры DSM-5-TR. Терапевтическая тактика и особенности работы. Управление переносом и контрпереносом. Примеры клинических случаев.
+                  Различие пограничной организации и ПРЛ. Координаты MISERY (Н. Мак-Вильямс). Ориентиры DSM-5-TR. Терапевтическая тактика и особенности работы.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-4" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-4" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">04</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Психотический уровень организации личности</h4>
-                    <p className="text-sm text-[#111111] mt-1">25.02, среда, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">25.02, среда</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Психотическая организация: критерии и феноменология. Нарушение тестирования реальности. Защиты психотического уровня. Диагностические признаки в терапевтическом контакте. Ограничения и возможности психотерапии. Междисциплинарное взаимодействие.
+                  Психотическая организация: критерии и феноменология. Нарушение тестирования реальности. Защиты психотического уровня. Диагностические признаки в терапевтическом контакте.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-5" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-5" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">05</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Нарциссическая личность</h4>
-                    <p className="text-sm text-[#111111] mt-1">04.03, среда, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">04.03, среда</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Нарциссическая организация личности: структура и динамика. Грандиозность, зависть, стыд. Типы нарциссизма (явный и скрытый). Нарциссический перенос и контрперенос. Технические особенности работы и риски в терапии.
+                  Нарциссическая организация личности: структура и динамика. Грандиозность, зависть, стыд. Типы нарциссизма (явный и скрытый). Нарциссический перенос и контрперенос.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-6" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-6" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">06</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Психоаналитическая типология в литературе и кино</h4>
-                    <p className="text-sm text-[#111111] mt-1">10.03, вторник, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">10.03, вторник</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Иллюстрация уровней личностной организации через анализ персонажей литературы и кино. Обсуждение защит, мотиваций, динамики отношений. Закрепление диагностических навыков на культурных примерах.
+                  Иллюстрация уровней личностной организации через анализ персонажей литературы и кино. Обсуждение защит, мотиваций, динамики отношений.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-7" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-7" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">07</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Практическое занятие 1: Супервизия случаев</h4>
-                    <p className="text-sm text-[#111111] mt-1">18.03, среда, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">18.03, среда</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Разбор клинических случаев, представленных участниками. Диагностика уровня организации личности в реальных ситуациях. Обсуждение стратегий работы, переноса и контрпереноса. Запись не публикуется.
+                  Разбор клинических случаев, представленных участниками. Диагностика уровня организации личности в реальных ситуациях. Запись не публикуется.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-8" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-8" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">08</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Практическое занятие 2: Супервизия случаев</h4>
-                    <p className="text-sm text-[#111111] mt-1">25.03, среда, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">25.03, среда</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Продолжение практического разбора случаев участников. Углубленная работа с диагностическими критериями. Отработка навыков в супервизионном формате. Запись не публикуется.
+                  Продолжение практического разбора случаев участников. Углубленная работа с диагностическими критериями. Запись не публикуется.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-9" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline">
+            <AccordionItem value="item-9" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline py-6">
                 <div className="flex items-start gap-4">
                   <span className="text-[#d3544f] font-bold text-xl">09</span>
                   <div>
                     <h4 className="font-semibold text-lg text-[#1d4356]">Интеграция знаний и завершение курса</h4>
-                    <p className="text-sm text-[#111111] mt-1">01.04, среда, 19:00–20:30</p>
+                    <p className="text-sm text-[#111111] mt-1">01.04, среда</p>
                   </div>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="pl-12 pt-4">
+              <AccordionContent className="pl-12 pt-2 pb-6">
                 <p className="text-[#111111]">
-                  Систематизация пройденного материала. Ответы на вопросы участников. Обсуждение сложных диагностических ситуаций. Рекомендации для дальнейшей работы и развития профессиональных навыков.
+                  Систематизация пройденного материала. Ответы на вопросы участников. Обсуждение сложных диагностических ситуаций. Рекомендации для дальнейшей работы.
                 </p>
               </AccordionContent>
             </AccordionItem>
@@ -474,24 +406,19 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="pricing" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-4">Стоимость обучения</h2>
-          <p className="text-[#111111] mb-8">Стоимость зависит от даты оплаты</p>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
+      <section id="pricing" className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-12">Стоимость обучения</h2>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <Card className="bg-white border-2 border-[#d3544f]">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-2xl text-[#1d4356]">Ранняя регистрация</CardTitle>
-                    <CardDescription className="mt-2 text-[#111111]">Оплата до 25 января</CardDescription>
-                  </div>
-                  <Icon name="Tag" size={32} className="text-[#d3544f]" />
+              <CardContent className="p-8">
+                <div className="mb-4">
+                  <Icon name="Tag" size={32} className="text-[#d3544f] mb-4" />
+                  <h3 className="text-2xl font-bold text-[#1d4356]">Ранняя регистрация</h3>
+                  <p className="text-sm text-[#111111] mt-2">Оплата до 25 января</p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-[#d3544f] mb-4">15 000 ₽</div>
-                <ul className="space-y-2 text-sm text-[#111111]">
+                <div className="text-4xl font-bold text-[#d3544f] mb-6">15 000 ₽</div>
+                <ul className="space-y-3 text-sm text-[#111111]">
                   <li className="flex items-start gap-2">
                     <Icon name="Check" size={16} className="flex-shrink-0 mt-1 text-[#d3544f]" />
                     <span>Экономия 5 000 ₽</span>
@@ -509,18 +436,14 @@ const Index = () => {
             </Card>
 
             <Card className="bg-white">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-2xl text-[#1d4356]">Стандартная цена</CardTitle>
-                    <CardDescription className="mt-2 text-[#111111]">Оплата до 1 февраля</CardDescription>
-                  </div>
-                  <Icon name="Ticket" size={32} className="text-[#1d4356]" />
+              <CardContent className="p-8">
+                <div className="mb-4">
+                  <Icon name="Ticket" size={32} className="text-[#1d4356] mb-4" />
+                  <h3 className="text-2xl font-bold text-[#1d4356]">Стандартная цена</h3>
+                  <p className="text-sm text-[#111111] mt-2">Оплата до 1 февраля</p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-bold text-[#1d4356] mb-4">20 000 ₽</div>
-                <ul className="space-y-2 text-sm text-[#111111]">
+                <div className="text-4xl font-bold text-[#1d4356] mb-6">20 000 ₽</div>
+                <ul className="space-y-3 text-sm text-[#111111]">
                   <li className="flex items-start gap-2">
                     <Icon name="Check" size={16} className="flex-shrink-0 mt-1 text-[#1d4356]" />
                     <span>Полная программа курса</span>
@@ -537,22 +460,13 @@ const Index = () => {
               </CardContent>
             </Card>
           </div>
-
-          <Card className="bg-white mt-6 max-w-4xl">
-            <CardContent className="p-6">
-              <p className="text-sm text-[#111111]">
-                <Icon name="Award" size={18} className="inline mr-2 text-[#1d4356]" />
-                По завершении курса и прохождении итогового тестирования (до 15 апреля) выдается удостоверение о повышении квалификации установленного образца на 72 часа.
-              </p>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
-      <section id="teacher" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-8">Преподаватель</h2>
-          <Card className="bg-white max-w-4xl">
+      <section id="teacher" className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-12">Преподаватель</h2>
+          <Card className="bg-white max-w-4xl mx-auto">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-2">
                 <span className="text-[#d3544f]">Екатерина Степанова</span>
@@ -583,106 +497,76 @@ const Index = () => {
                     <p className="text-[#111111]">Супервизор РПА, преподаватель НОЦ СМТ</p>
                   </div>
                 </div>
-
-                <div className="flex items-start gap-3">
-                  <Icon name="Brain" size={20} className="text-[#1d4356] flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold text-[#1d4356]">Подход</p>
-                    <p className="text-[#111111]">Интегративный с опорой на психоаналитический метод</p>
-                  </div>
-                </div>
               </div>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      <section id="faq" className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-8">Часто задаваемые вопросы</h2>
-          <Accordion type="single" collapsible className="space-y-4 max-w-4xl">
-            <AccordionItem value="faq-1" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
+      <section id="faq" className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1d4356] mb-12">Часто задаваемые вопросы</h2>
+          <Accordion type="single" collapsible className="space-y-4 max-w-4xl mx-auto">
+            <AccordionItem value="faq-1" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356] py-6">
                 Какие требования к участникам курса?
               </AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-2 pb-6">
                 <p className="text-[#111111]">
                   Курс предназначен для специалистов с высшим образованием по психологии или дополнительным профессиональным образованием в области психологии. Базовое знакомство с психоаналитической теорией приветствуется, но не обязательно.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="faq-2" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
+            <AccordionItem value="faq-2" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356] py-6">
                 Подходит ли курс начинающим специалистам?
               </AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-2 pb-6">
                 <p className="text-[#111111]">
                   Да, курс подходит для психологов, которые начинают практику в психоаналитическом подходе. Материал структурирован от базовых концепций к практическому применению.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="faq-3" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
+            <AccordionItem value="faq-3" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356] py-6">
                 Как проходят занятия и доступны ли записи?
               </AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-2 pb-6">
                 <p className="text-[#111111]">
                   Занятия проводятся онлайн в формате вебинаров с возможностью задавать вопросы в прямом эфире. Записи вебинаров публикуются в течение 2 дней и доступны 6 месяцев. Практические супервизионные занятия не записываются для соблюдения конфиденциальности.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="faq-4" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
+            <AccordionItem value="faq-4" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356] py-6">
                 Что если я пропущу занятие?
               </AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-2 pb-6">
                 <p className="text-[#111111]">
                   Записи вебинаров доступны для просмотра в удобное время в течение 6 месяцев. Пропуск занятия не влияет на получение удостоверения при условии прохождения итогового тестирования.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="faq-5" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
+            <AccordionItem value="faq-5" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356] py-6">
                 Предусмотрены ли домашние задания?
               </AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-2 pb-6">
                 <p className="text-[#111111]">
                   Да, в курсе предусмотрено 2 промежуточных домашних задания на отработку навыков диагностики. Каждое задание проверяется преподавателем с предоставлением обратной связи.
                 </p>
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="faq-6" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
-                Как проходит итоговое тестирование?
-              </AccordionTrigger>
-              <AccordionContent className="pt-4">
-                <p className="text-[#111111]">
-                  Итоговое тестирование проводится в онлайн-формате до 15 апреля. После успешного прохождения выдается удостоверение о повышении квалификации на 72 часа.
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="faq-7" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
-                Что включает удостоверение на 72 часа?
-              </AccordionTrigger>
-              <AccordionContent className="pt-4">
-                <p className="text-[#111111]">
-                  Удостоверение о повышении квалификации установленного образца на 72 часа выдается после прохождения курса и итогового тестирования. Документ соответствует требованиям законодательства РФ.
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="faq-8" className="bg-white border rounded-lg px-6">
-              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356]">
+            <AccordionItem value="faq-6" className="bg-white rounded-lg px-6 border-none">
+              <AccordionTrigger className="text-left hover:no-underline text-[#1d4356] py-6">
                 Можно ли представить свой случай на супервизии?
               </AccordionTrigger>
-              <AccordionContent className="pt-4">
+              <AccordionContent className="pt-2 pb-6">
                 <p className="text-[#111111]">
                   Да, на двух практических занятиях участники могут представить свои клинические случаи для разбора в супервизионном формате. Это помогает отработать навыки диагностики на реальных примерах.
                 </p>
@@ -692,7 +576,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="signup" className="py-12 md:py-16">
+      <section id="signup" className="py-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <Card className="bg-white">
             <CardContent className="p-8 md:p-12">
@@ -786,8 +670,8 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="py-8 bg-white border-t">
-        <div className="container mx-auto px-4 max-w-6xl text-center text-muted-foreground">
+      <footer className="py-8 bg-white">
+        <div className="container mx-auto px-4 max-w-7xl text-center text-[#111111]">
           <p>© 2025 Курс повышения квалификации по психоаналитической диагностике</p>
         </div>
       </footer>
